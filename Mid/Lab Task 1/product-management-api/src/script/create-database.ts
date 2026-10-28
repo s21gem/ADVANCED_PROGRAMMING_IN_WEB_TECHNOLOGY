@@ -3,10 +3,7 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { readDatabaseConfig } from "../config/database.config";
 
-/**
- * Creates the database named in DB_DATABASE if it does not exist yet.
- * Usage: npm run db:create
- */
+// npm run db:create -> creates DB_DATABASE if it does not exist.
 async function main() {
   const db = readDatabaseConfig();
 

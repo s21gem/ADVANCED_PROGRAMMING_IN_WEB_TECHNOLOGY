@@ -5,17 +5,7 @@ import { Product } from "../modules/product/entities/product.entity";
 import { CreateProductsTable1793232000000 } from "./migrations/1793232000000-create-products-table";
 import { CreateEmployeesTable1793232000001 } from "./migrations/1793232000001-create-employees-table";
 
-export const ENTITIES = [Product, Employee];
-export const MIGRATIONS = [
-  CreateProductsTable1793232000000,
-  CreateEmployeesTable1793232000001,
-];
-
-/**
- * Single source of truth for the PostgreSQL connection.
- * Schema is managed by migrations only (synchronize is off), so the
- * database structure is reproducible and never changed by accident.
- */
+// Shared by the app and the TypeORM CLI. Tables come from migrations only.
 export const buildTypeOrmOptions = (db: DatabaseConfig): DataSourceOptions => ({
   type: "postgres",
   host: db.host,
@@ -23,8 +13,11 @@ export const buildTypeOrmOptions = (db: DatabaseConfig): DataSourceOptions => ({
   username: db.username,
   password: db.password,
   database: db.database,
-  entities: ENTITIES,
-  migrations: MIGRATIONS,
+  entities: [Product, Employee],
+  migrations: [
+    CreateProductsTable1793232000000,
+    CreateEmployeesTable1793232000001,
+  ],
   migrationsTableName: "migrations",
   synchronize: false,
   logging: db.logging,

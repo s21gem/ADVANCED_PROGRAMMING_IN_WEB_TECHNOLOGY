@@ -4,10 +4,6 @@ import { Repository } from "typeorm";
 import { CreateProductDto, UpdateProductDto } from "./dto/product.dto";
 import { Product } from "./entities/product.entity";
 
-/**
- * All database work for products lives here; the controller only
- * handles HTTP concerns.
- */
 @Injectable()
 export class ProductService {
   constructor(

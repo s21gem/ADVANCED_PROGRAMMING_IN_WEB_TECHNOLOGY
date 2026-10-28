@@ -1,17 +1,14 @@
-# Product Management API — Lab Task 1
+# Product Management API (Lab Task 1)
 
 **Course:** Advanced Programming in Web Technology
-**Task:** Mid — Lab Task 1
+**Task:** Mid, Lab Task 1
 
 | SL | Name          | Student ID | Section |
 |----|---------------|------------|---------|
 | 8  | Musa Abdullah | 22-49674-3 | B       |
 
-A REST API for a small shop to manage its **products** and **employees**, built
-with **NestJS**, **TypeORM** and **PostgreSQL**. Every operation reads and writes
-real database records — there are no in-memory arrays.
-
----
+A REST API for a small shop to manage products and employees, built with
+NestJS, TypeORM and PostgreSQL.
 
 ## Tech stack
 
@@ -23,13 +20,11 @@ real database records — there are no in-memory arrays.
 | Validation | class-validator + class-transformer         |
 | Config     | @nestjs/config + `.env`                     |
 
----
-
 ## Project structure
 
 ```
 product-management-api/
-├── screenshots/                    # Postman evidence (01-create.png … 07-confirm-delete.png)
+├── screenshots/                    # Postman screenshots
 ├── src/
 │   ├── common/
 │   │   ├── filters/                # DB error → HTTP (duplicate email → 409)
@@ -47,13 +42,13 @@ product-management-api/
 │   │   │   ├── entities/           # Product entity
 │   │   │   ├── product.controller.ts
 │   │   │   ├── product.module.ts
-│   │   │   └── product.service.ts  # all product DB operations
+│   │   │   └── product.service.ts
 │   │   └── employee/
 │   │       ├── dto/employee.dto.ts # CreateEmployeeDto + UpdateEmployeeDto
 │   │       ├── entities/           # Employee entity
 │   │       ├── employee.controller.ts
 │   │       ├── employee.module.ts
-│   │       └── employee.service.ts # all employee DB operations
+│   │       └── employee.service.ts
 │   ├── providers/database/postgres/
 │   │   └── provider.module.ts      # TypeORM connection for the app
 │   ├── script/create-database.ts   # npm run db:create
@@ -70,17 +65,10 @@ product-management-api/
 └── tsconfig.build.json
 ```
 
-Each feature follows the **module → controller → service → entity** pattern.
-Controllers only handle HTTP; every database operation lives in the service.
-
----
-
 ## Prerequisites
 
 - **Node.js** 20 or newer (`node -v`)
 - **PostgreSQL** running locally (default port `5432`)
-
----
 
 ## Setup
 
@@ -141,8 +129,6 @@ Other commands:
 | `npm run migration:revert` | Undo the last migration                 |
 | `npm run migration:show`   | List applied / pending migrations       |
 
----
-
 ## Database schema
 
 **products**
@@ -163,15 +149,13 @@ Other commands:
 |--------------------|----------------|--------------------------------|
 | `id`               | `SERIAL`       | Primary key (generated)        |
 | `name`             | `VARCHAR(120)` | Required                       |
-| `email`            | `VARCHAR(150)` | Required, **unique**           |
+| `email`            | `VARCHAR(150)` | Required, unique               |
 | `phone`            | `VARCHAR(20)`  | Required                       |
-| `password`         | `VARCHAR(255)` | Stored **hashed**, never returned |
-| `age`              | `INTEGER`      | 18 – 100                       |
+| `password`         | `VARCHAR(255)` | Stored hashed                  |
+| `age`              | `INTEGER`      | 18 to 100                      |
 | `years_of_working` | `INTEGER`      | `>= 0`                         |
 | `created_at`       | `TIMESTAMPTZ`  | Set automatically              |
 | `updated_at`       | `TIMESTAMPTZ`  | Updated automatically          |
-
----
 
 ## API endpoints
 
@@ -198,7 +182,7 @@ Base URL: `http://localhost:5001`
 }
 ```
 
-**Update body** — send only the fields you want to change:
+**Update body** (send only the fields to change):
 
 ```json
 {
@@ -230,7 +214,7 @@ Base URL: `http://localhost:5001`
 }
 ```
 
-The `password` is hashed before saving and is **never** included in responses.
+The password is hashed before saving and is not returned in responses.
 
 ### Info
 
@@ -238,9 +222,7 @@ The `password` is hashed before saving and is **never** included in responses.
 |--------|----------|--------------------------------------|
 | `GET`  | `/`      | Student details and endpoint list    |
 
----
-
-## Validation & error handling
+## Validation and errors
 
 | Situation                                   | Response              |
 |---------------------------------------------|-----------------------|
@@ -248,11 +230,8 @@ The `password` is hashed before saving and is **never** included in responses.
 | Unknown field in the body                   | `400 Bad Request`     |
 | Empty body on `PATCH`                       | `400 Bad Request`     |
 | Non-numeric `:id` (e.g. `/products/abc`)    | `400 Bad Request`     |
-| `yearsOfWorking` unrealistic for `age`      | `400 Bad Request`     |
 | ID that does not exist                      | `404 Not Found`       |
 | Employee email already used                 | `409 Conflict`        |
-
----
 
 ## Postman screenshots
 

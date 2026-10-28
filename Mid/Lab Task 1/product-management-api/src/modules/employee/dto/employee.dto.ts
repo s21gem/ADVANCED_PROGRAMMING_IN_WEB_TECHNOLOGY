@@ -55,5 +55,4 @@ export class CreateEmployeeDto {
   yearsOfWorking!: number;
 }
 
-// Every field from CreateEmployeeDto, all optional, same validation rules.
 export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {}

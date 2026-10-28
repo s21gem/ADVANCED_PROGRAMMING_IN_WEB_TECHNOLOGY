@@ -39,5 +39,4 @@ export class CreateProductDto {
   quantity!: number;
 }
 
-// Every field from CreateProductDto, all optional, same validation rules.
 export class UpdateProductDto extends PartialType(CreateProductDto) {}

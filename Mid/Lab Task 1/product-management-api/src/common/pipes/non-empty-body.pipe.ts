@@ -1,9 +1,6 @@
 import { BadRequestException, Injectable, PipeTransform } from "@nestjs/common";
 
-/**
- * Rejects PATCH requests with an empty JSON body, so "update" calls
- * always change at least one field.
- */
+// Rejects PATCH requests with an empty body.
 @Injectable()
 export class NonEmptyBodyPipe implements PipeTransform {
   transform<T extends object>(value: T): T {

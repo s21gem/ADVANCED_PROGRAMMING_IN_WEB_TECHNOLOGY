@@ -18,26 +18,22 @@ import { EmployeeService } from "./employee.service";
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
-  // POST /employees
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() dto: CreateEmployeeDto) {
     return this.employeeService.create(dto);
   }
 
-  // GET /employees
   @Get()
   findAll() {
     return this.employeeService.findAll();
   }
 
-  // GET /employees/:id
   @Get(":id")
   findOne(@Param("id", ParseIntPipe) id: number) {
     return this.employeeService.findOne(id);
   }
 
-  // PATCH /employees/:id
   @Patch(":id")
   update(
     @Param("id", ParseIntPipe) id: number,
@@ -46,7 +42,6 @@ export class EmployeeController {
     return this.employeeService.update(id, dto);
   }
 
-  // DELETE /employees/:id
   @Delete(":id")
   @HttpCode(HttpStatus.OK)
   remove(@Param("id", ParseIntPipe) id: number) {

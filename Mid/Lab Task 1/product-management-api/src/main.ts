@@ -12,7 +12,6 @@ import { AppConfig } from "./config";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Validate every request body against its DTO and drop unknown fields.
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -21,10 +20,9 @@ async function bootstrap() {
     }),
   );
 
-  // Applies @Exclude() rules (e.g. hides employee passwords).
+  // Needed for @Exclude() on Employee.password.
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
-  // Maps database errors (duplicate email, etc.) to proper HTTP codes.
   app.useGlobalFilters(new DatabaseExceptionFilter());
 
   const { port } = app.get(ConfigService).getOrThrow<AppConfig>("app");

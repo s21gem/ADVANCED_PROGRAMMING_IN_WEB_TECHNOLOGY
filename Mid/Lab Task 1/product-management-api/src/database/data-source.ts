@@ -4,8 +4,5 @@ import { DataSource } from "typeorm";
 import { readDatabaseConfig } from "../config/database.config";
 import { buildTypeOrmOptions } from "./typeorm.options";
 
-/**
- * Data source used by the TypeORM CLI
- * (npm run migration:run / migration:revert / migration:show).
- */
+// Used by the npm migration:* scripts.
 export default new DataSource(buildTypeOrmOptions(readDatabaseConfig()));

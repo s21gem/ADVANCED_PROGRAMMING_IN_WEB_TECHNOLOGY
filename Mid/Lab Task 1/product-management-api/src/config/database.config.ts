@@ -9,11 +9,7 @@ export interface DatabaseConfig {
   logging: boolean;
 }
 
-/**
- * Reads PostgreSQL settings from environment variables.
- * Shared by the Nest app (via ConfigService) and the TypeORM CLI data source.
- * Variable names follow the course boilerplate (DB_USER, DB_DATABASE, ...).
- */
+// Also used by the TypeORM CLI, which runs outside Nest.
 export const readDatabaseConfig = (): DatabaseConfig => ({
   host: process.env.DB_HOST ?? "localhost",
   port: parseInt(process.env.DB_PORT ?? "5432", 10),

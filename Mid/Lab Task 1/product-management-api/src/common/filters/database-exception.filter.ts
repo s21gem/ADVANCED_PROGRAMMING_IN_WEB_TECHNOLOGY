@@ -18,9 +18,6 @@ interface PgDriverError {
   constraint?: string;
 }
 
-/**
- * Turns raw database errors into clean HTTP responses instead of a 500.
- */
 @Catch(QueryFailedError)
 export class DatabaseExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(DatabaseExceptionFilter.name);
